@@ -13,7 +13,7 @@
   - name: Setting Hostname
     hostname: name=server1.eight.example.com
   - name: Configuring network
-    shell: nmcli con mod "System eth1" ipv4.addresses 192.168.55.150/24 ipv4.gateway 192.168.55.1 ipv4.dns 8.8.8.8 ipv4.dns-search eight.example.com ipv4.method manual
+    shell: nmcli con mod "System eth1" ipv4.addresses 192.168.56.150/24 ipv4.gateway 192.168.56.1 ipv4.dns 8.8.8.8 ipv4.dns-search eight.example.com ipv4.method manual
   - name: Reloading Network
     service: 
       name: NetworkManager
@@ -21,7 +21,7 @@
   - name: Building Host File
     copy:
       dest: /etc/hosts
-      content: "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\n:1         localhost localhost.localdomain localhost6 localhost6.localdomain6\n192.168.55.149 repo.eight.example.com repo\n192.168.55.150 server1.eight.example.com server1\n192.168.55.151 server2.eight.example.com server2"
+      content: "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\n:1         localhost localhost.localdomain localhost6 localhost6.localdomain6\n192.168.56.149 repo.eight.example.com repo\n192.168.56.150 server1.eight.example.com server1\n192.168.56.151 server2.eight.example.com server2"
       force: yes
   - name: Erasing Repos
     file:

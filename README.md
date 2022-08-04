@@ -104,12 +104,12 @@ You can also use the VirtualBox console to interact with the VMs or through a te
 
 ## System Details:
 > server1
-- 192.168.55.150
-- Gateway - 192.168.55.1
+- 192.168.56.150
+- Gateway - 192.168.56.1
 - DNS - 8.8.8.8
 > server2
-- 192.168.55.151
-- Gateway - 192.168.55.1
+- 192.168.56.151
+- Gateway - 192.168.56.1
 - DNS - 8.8.8.8
 
 There is a Repo/AppStream available to use from `http://repo.eight.example.com/BaseOS` and `http://repo.eight.example.com/AppStream`
@@ -119,7 +119,7 @@ Remember to add the IP addresses to your local host file if you want to connect 
 Username - vagrant
 Password - vagrant
 - For root - use `sudo` or `sudo su`
-Access example - `ssh vagrant@192.168.55.150` or `vagrant ssh system`
+Access example - `ssh vagrant@192.168.56.150` or `vagrant ssh system`
 
 ## Help
 If you're having problems with the environment, please submit an issue by going to the `ISSUES` tab at the top. If you have more questions, looking for practice exams to use against this environment, or just looking for a fantastic Red Hat community to join to get your questions answered, check out the Red Hat Certs Slack Workspace. You can find the invite link at the top of this page next to the description.

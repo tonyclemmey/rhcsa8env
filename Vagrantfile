@@ -11,9 +11,9 @@ config.vm.box_check_update = false
 config.vm.define "server2" do |server2|
   server2.vm.box = "rdbreak/rhel8node"
 #  server2.vm.hostname = "server2.eight.example.com"
-  server2.vm.network "private_network", ip: "192.168.55.151"
-  server2.vm.network "private_network", ip: "192.168.55.175"
-  server2.vm.network "private_network", ip: "192.168.55.176"
+  server2.vm.network "private_network", ip: "192.168.56.151"
+  server2.vm.network "private_network", ip: "192.168.56.175"
+  server2.vm.network "private_network", ip: "192.168.56.176"
   server2.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/", rsync__exclude: "*.vdi"
   server2.vm.provider "virtualbox" do |server2|
     server2.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 2]
@@ -65,7 +65,7 @@ config.vm.define "repo" do |repo|
   repo.vm.provision :shell, :inline => "yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y; sudo yum install -y sshpass python3-pip python3-devel httpd sshpass vsftpd createrepo", run: "always"
   repo.vm.provision :shell, :inline => " python3 -m pip install -U pip ; python3 -m pip install pexpect; python3 -m pip install ansible", run: "always"
   repo.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/", rsync__exclude: "*.vdi"
-  repo.vm.network "private_network", ip: "192.168.55.149"
+  repo.vm.network "private_network", ip: "192.168.56.149"
 
   repo.vm.provider "virtualbox" do |repo|
     repo.memory = "1024"
@@ -77,7 +77,7 @@ config.vm.define "server1" do |server1|
   server1.vm.box = "rdbreak/rhel8node"
   server1.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/", rsync__exclude: "*.vdi"
 #  server1.vm.hostname = "server1.eight.example.com"
-  server1.vm.network "private_network", ip: "192.168.55.150"
+  server1.vm.network "private_network", ip: "192.168.56.150"
   server1.vm.provider :virtualbox do |server1|
     server1.customize ['modifyvm', :id,'--memory', '2048']
     end
