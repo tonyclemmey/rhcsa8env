@@ -69,18 +69,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       server2.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', file_to_disk2]
 
     end
-    
+
     server2.vm.provision "shell", inline: <<-SHELL
-      yes|  mkfs.ext4 -L extradisk1 /dev/sdb
+      if mount | grep /dev/sdb > /dev/null; then
+        echo "/dev/sdb is already mounted"
+      else
+        yes|  mkfs.ext4 -L extradisk1 /dev/sdb
+      fi
     SHELL
     server2.vm.provision "shell", inline: <<-SHELL
-      mkdir /extradisk1 ; echo \'LABEL=extradisk1 /extradisk1 ext4 defaults 0 0\' >> /etc/fstab
+      if cat /etc/fstab | grep /extradisk1 > /dev/null; then
+        echo "/extradisk1 already exists in /etc/fstab"
+      else 
+        mkdir /extradisk1 ; echo \'LABEL=extradisk1 /extradisk1 ext4 defaults 0 0\' >> /etc/fstab
+      fi
     SHELL
     server2.vm.provision "shell", inline: <<-SHELL
-      yes|  mkfs.ext4 -L extradisk2 /dev/sdc
+      if mount | grep /dev/sdc > /dev/null; then
+        echo "/dev/sdc is already mounted"
+      else
+        yes|  mkfs.ext4 -L extradisk2 /dev/sdc
+      fi
     SHELL
     server2.vm.provision "shell", inline: <<-SHELL
-      mkdir /extradisk2 ; echo \'LABEL=extradisk2 /extradisk2 ext4 defaults 0 0\' >> /etc/fstab
+      if cat /etc/fstab | grep /extradisk1 > /dev/null; then
+        echo "/extradisk2 already exists in /etc/fstab"
+      else 
+        mkdir /extradisk2 ; echo \'LABEL=extradisk2 /extradisk2 ext4 defaults 0 0\' >> /etc/fstab
+      fi
     SHELL
 
     server2.vm.provision :ansible_local do |ansible|
@@ -103,6 +119,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       trigger.run_remote = {inline: rhsm_unregister_script}
       trigger.on_error = :continue
     end
+
+    server2.vm.provision :shell, :inline => "sudo update -y", run: "always"
 
     server2.vm.provision :shell, :inline => "reboot", run: "always"
 
@@ -154,6 +172,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       trigger.run_remote = {inline: rhsm_unregister_script}
       trigger.on_error = :continue
     end
+
+    server1.vm.provision :shell, :inline => "sudo update -y", run: "always"
 
     server1.vm.provision :shell, :inline => "reboot", run: "always"
 
