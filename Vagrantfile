@@ -91,7 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       fi
     SHELL
     server2.vm.provision "shell", inline: <<-SHELL
-      if cat /etc/fstab | grep /extradisk1 > /dev/null; then
+      if cat /etc/fstab | grep /extradisk2 > /dev/null; then
         echo "/extradisk2 already exists in /etc/fstab"
       else 
         mkdir /extradisk2 ; echo \'LABEL=extradisk2 /extradisk2 ext4 defaults 0 0\' >> /etc/fstab
