@@ -119,8 +119,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       trigger.on_error = :continue
     end
 
-    server2.vm.provision :shell, :inline => "sudo yum update -y", run: "always"
-
     server2.vm.provision :shell, :inline => "reboot", run: "always"
 
   end
@@ -171,8 +169,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       trigger.run_remote = {inline: rhsm_unregister_script}
       trigger.on_error = :continue
     end
-
-    server1.vm.provision :shell, :inline => "sudo yum update -y", run: "always"
 
     server1.vm.provision :shell, :inline => "reboot", run: "always"
 
